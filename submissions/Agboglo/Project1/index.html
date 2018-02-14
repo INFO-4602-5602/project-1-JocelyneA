@@ -42,17 +42,14 @@
         });
         //anscombe 2
         d3.csv("data/anscombe_II.csv", function(error, data) {
-           // console.log(data);
             checkDataset(data);
         });
         //anscombe 3
         d3.csv("data/anscombe_III.csv", function(error, data) {
-           // console.log(data);
             checkDataset(data);
         });
        // anscombe 4
         d3.csv("data/anscombe_IV.csv", function(error, data) {
-           // console.log(data);
             checkDataset(data);
         });
 
@@ -65,13 +62,12 @@
         }
 
         // Put your part two code here ***********************
-        //anscombe 1
+        //anscombe 2
         var w = 600; //width
         var h = 600; //height
         var xOffset = 40; //x axis lables
         var yOffset = 100; //y axis lables
         var margin = 10;
-
         var vals = ['x','y'];
         var xVal = vals[0];
         var yVal = vals[1];
@@ -83,18 +79,18 @@
         var x = d3.scaleLinear().range([0, width]);
         var y = d3.scaleLinear().range([height,0]);
         
-        var svg1 = d3.select("#partTwo")//.append("svg")
+        var svg1 = d3.select("#partTwo").append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
             .append("g")
             .attr("transform","translate("+ margin.left + "," + margin.top + ")");
 
-        //data anscombe-1
+        //data
         d3.csv("data/anscombe_II.csv", function(error, data) {
         //scale
         x.domain([0, d3.max(data, function(d) {return parseFloat (d[xVal]);})]);
         y.domain([0, d3.max(data, function(d) {return parseFloat(d[yVal]);})]);
-        //updating for interaction (PART 4):
+
         svg1.selectAll("circle")
         .data(data)
         .enter()
@@ -102,21 +98,14 @@
         .attr("r", 5)
         .attr("cx", function(d){return x(d[xVal]);})
         .attr("cy", function(d){return y(d[yVal]);})
-        //part 4
-        .on("click", function(){d3.select(this)
-        .style("fill","green"); 
 
-
-        })
-
-        //.on("click", function(d){d3.select("scatterlabel").html(d[xval, d[yval]])}
-        //d3.select("scatterLabel").html("")
+        //updating for interaction (PART 4):
+        .on("click",function(d) {d3.select("#scatterLabel").html(d[xVal] + "," + d[yVal]);});
 
         // Add the X Axis
         svg1.append("g")
         .attr("transform", "translate(0," + height +")")
         .call(d3.axisBottom(x));
-
         // Add the Y Axis
         svg1.append("g")
         .call(d3.axisLeft(y));
@@ -127,7 +116,6 @@
                 .text(xVal)
                 .attr("x",width)
                 .attr("y", height - 10);
-
         var yLabel = svg1.append("text")
                 .attr("class", "label")
                 .text(yVal)
@@ -137,23 +125,23 @@
         });
 
         // A function to retrieve the next value in the vals list
-function getNextVal(val) {
-    return vals[(vals.indexOf(val) + 1) % vals.length];
-};
+        function getNextVal(val) {
+        return vals[(vals.indexOf(val) + 1) % vals.length];
+        };
 
-// A function to change what values we plot on the x-axis
-function setXval(val) {
-    // Update xVal
-    xVal = val;
-    // Update the axis
-    xScale.domain([d3.min(data, function(d) { return parseFloat(d[xVal]); })-1,
+        // A function to change what values we plot on the x-axis
+        function setXval(val) {
+        // Update xVal
+        xVal = val;
+        // Update the axis
+        xScale.domain([d3.min(data, function(d) { return parseFloat(d[xVal]); })-1,
                    d3.max(data, function(d) { return parseFloat(d[xVal]); })+1])
-    xAxis.scale(xScale);
-    xAxisG.call(xAxis);
-    xLabel.text(xVal);
-    // Update the points
+        xAxis.scale(xScale);
+        xAxisG.call(xAxis);
+        xLabel.text(xVal);
+        // Update the points
 
-};
+        };
 
         // Put your part three & four code here ***********************
         //PART 3 line graph
@@ -162,7 +150,6 @@ function setXval(val) {
         var xOffset = 40; //x axis lables
         var yOffset = 100; //y axis lables
         var margin = 10;
-
         var vals = ['x','y'];
         var xVal = vals[0];
         var yVal = vals[1];
@@ -186,7 +173,7 @@ function setXval(val) {
         x.domain([0, d3.max(data, function(d) {return parseFloat(d[xVal]);})]);
         y.domain([0, d3.max(data, function(d) {return parseFloat(d[yVal]);})]);
 
-        //line graph- code from 'Learn Together' Youtube channel on D3.js tutorial on drawing a line chart
+        //line graph: code from 'Learn Together' Youtube channel on D3.js tutorial on drawing a line chart
         var line = d3.line()
             .x(function(d){return x(d[xVal]);})
             .y(function(d){return y(d[yVal]);})
@@ -197,7 +184,6 @@ function setXval(val) {
         svg2.append("g")
         .attr("transform", "translate(0," + height +")")
         .call(d3.axisBottom(x));
-
         // Add the Y Axis
         svg2.append("g")
         .call(d3.axisLeft(y));
@@ -208,7 +194,6 @@ function setXval(val) {
                 .text(xVal)
                 .attr("x",width)
                 .attr("y", height - 10);
-
         var yLabel = svg2.append("text")
                 .attr("class", "label")
                 .text(yVal)
@@ -219,13 +204,7 @@ function setXval(val) {
 
 
         //PART 4
-        //updating the svg for the scatterlabel to add interaction
-        var svg1 = d3.select("#scatterLabel")
-            .append("svg")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
-            .append("g")
-            .attr("transform","translate("+ margin.left + "," + margin.top + ")");
+        //updating the svg for the scatter>abel to add interaction, updated code in part 2
 
         // Put your part five code here ***********************
         //ANSCOMBE 1
@@ -234,7 +213,8 @@ function setXval(val) {
         var xOffset1 = 20; //x axis lables
         var yOffset1 = 40; //y axis lables
         var margin1 = 10;
-        var gVals = ['Anscombe I', 'Anscombe II','Anscombe III', 'Anscombe IV'];
+        //values to get graph labels
+        var gVals = ['_Anscombe I', '_Anscombe II','__Anscombe III', '__Anscombe IV'];
         var gVal1 = gVals[0];
         var gVal2 = gVals[1];
         var gVal3 = gVals[2];
@@ -252,14 +232,13 @@ function setXval(val) {
         var y1 = d3.scaleLinear().range([height1,0]);
         
         var svg3 = d3.select("#partFive").append("svg")
-            .attr("width", width1 + margin.left + margin.right+400)
-            .attr("height", height1 + margin.top + margin.bottom+400)
+            .attr("width", width1 + margin.left + margin.right+300)
+            .attr("height", height1 + margin.top + margin.bottom+350)
             .append("g")
             .attr("transform","translate("+ margin.left + "," + margin.top + ")");
 
         //data 
         d3.csv("data/anscombe_I.csv", function(error, data) {
-        //scale
         x1.domain([0, d3.max(data, function(d) {return parseFloat (d[xVal]);})]);
         y1.domain([0, d3.max(data, function(d) {return parseFloat(d[yVal]);})]);
 
@@ -275,7 +254,6 @@ function setXval(val) {
         svg3.append("g")
         .attr("transform", "translate(0," + height +")")
         .call(d3.axisBottom(x));
-
         // Add the Y Axis
         svg3.append("g")
         .call(d3.axisLeft(y));
@@ -286,7 +264,6 @@ function setXval(val) {
                 .text(xVal)
                 .attr("x",width)
                 .attr("y", height - 10);
-
         var yLabel = svg3.append("text")
                 .attr("class", "label")
                 .text(yVal)
@@ -298,22 +275,21 @@ function setXval(val) {
         var gLabel = svg3.append("text")
                 .attr("class", "label")
                 .text(gVal1);
-                //.attr("transform", -100);
         });
+
         //ANSCOMBE II
         var w2 = 300; //width
         var h2 = 300; //height
         var xOffset = 40; //x axis lables
         var yOffset = 100; //y axis lables
         var margin = 10;
-
         var vals = ['x','y'];
         var xVal = vals[0];
         var yVal = vals[1];
         //dimensions
         var margin = {top:10, right:20, bottom:30, left:40};
-        var width2 = 300 - margin.left - margin.right+400;
-        var height2 = 300 - margin.top- margin.bottom+400;
+        var width2 = 300 - margin.left - margin.right+300;
+        var height2 = 300 - margin.top- margin.bottom+350;
         //range
         var x = d3.scaleLinear().range([0, width]);
         var y = d3.scaleLinear().range([height,0]);
@@ -342,7 +318,6 @@ function setXval(val) {
         svg4.append("g")
         .attr("transform", "translate(0," + height +")")
         .call(d3.axisBottom(x));
-
         // Add the Y Axis
         svg4.append("g")
         .call(d3.axisLeft(y));
@@ -353,20 +328,18 @@ function setXval(val) {
                 .text(xVal)
                 .attr("x",width)
                 .attr("y", height - 10);
-
         var yLabel = svg4.append("text")
                 .attr("class", "label")
                 .text(yVal)
                 .attr("y", -10)
                 .attr("transform", "rotate(90)")
                 .style("text-anchor", "start"); 
+
                 //graph label
         var gLabel = svg4.append("text")
                 .attr("class", "label")
-                .text(gVal2);
-                //.attr("transform");    
+                .text(gVal2);   
         });
-
   
         //ANSCOMBE III
         var w1 = 300; //width
@@ -380,8 +353,8 @@ function setXval(val) {
         var yVal = vals[1];
         //dimensions
         var margin = {top:10, right:20, bottom:30, left:40};
-        var width1 = 300 - margin.left - margin.right+400;
-        var height1 = 300 - margin.top - margin.bottom+400;
+        var width1 = 300 - margin.left - margin.right+300;
+        var height1 = 300 - margin.top - margin.bottom+350;
         //range
         var x = d3.scaleLinear().range([0, width]);
         var y = d3.scaleLinear().range([height,0]);
@@ -394,7 +367,6 @@ function setXval(val) {
 
         //data
         d3.csv("data/anscombe_III.csv", function(error, data) {
-        //scale
         x.domain([0, d3.max(data, function(d) {return parseFloat (d[xVal]);})]);
         y.domain([0, d3.max(data, function(d) {return parseFloat(d[yVal]);})]);
 
@@ -410,7 +382,6 @@ function setXval(val) {
         svg5.append("g")
         .attr("transform", "translate(0," + height +")")
         .call(d3.axisBottom(x));
-
         // Add the Y Axis
         svg5.append("g")
         .call(d3.axisLeft(y));
@@ -421,18 +392,17 @@ function setXval(val) {
                 .text(xVal)
                 .attr("x",width)
                 .attr("y", height - 10);
-
         var yLabel = svg5.append("text")
                 .attr("class", "label")
                 .text(yVal)
                 .attr("y", -10)
                 .attr("transform", "rotate(90)")
                 .style("text-anchor", "start");
+
                 //graph label
                 var gLabel = svg5.append("text")
                 .attr("class", "label")
                 .text(gVal3);
-                //.attr("transform", -100); 
         });
 
         //ANSCOMBE IV
@@ -448,7 +418,7 @@ function setXval(val) {
         //dimensions
         var margin = {top:10, right:20, bottom:30, left:40};
         var width1 = 300 - margin.left - margin.right+300;
-        var height1 = 300 - margin.top - margin.bottom+400;
+        var height1 = 300 - margin.top - margin.bottom+350;
         //range
         var x = d3.scaleLinear().range([0, width]);
         var y = d3.scaleLinear().range([height,0]);
@@ -461,7 +431,6 @@ function setXval(val) {
 
         //data
         d3.csv("data/anscombe_IV.csv", function(error, data) {
-        //scale
         x.domain([0, d3.max(data, function(d) {return parseFloat (d[xVal]);})]);
         y.domain([0, d3.max(data, function(d) {return parseFloat(d[yVal]);})]);
 
@@ -477,7 +446,6 @@ function setXval(val) {
         svg6.append("g")
         .attr("transform", "translate(0," + height +")")
         .call(d3.axisBottom(x));
-
         // Add the Y Axis
         svg6.append("g")
         .call(d3.axisLeft(y));
@@ -488,18 +456,17 @@ function setXval(val) {
                 .text(xVal)
                 .attr("x",width)
                 .attr("y", height - 10);
-
         var yLabel = svg6.append("text")
                 .attr("class", "label")
                 .text(yVal)
                 .attr("y", -10)
                 .attr("transform", "rotate(90)")
                 .style("text-anchor", "start");
+
                 //graph label
                 var gLabel = svg6.append("text")
                 .attr("class", "label")
                 .text(gVal4);
-                //.attr("transform"); 
         });
     </script>
 </body>

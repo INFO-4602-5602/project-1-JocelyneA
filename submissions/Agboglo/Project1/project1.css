@@ -5,7 +5,7 @@
 
 body {
     font-family: sans-serif;
-    font-size: 11px;
+    font-size: 12px;
 }
 
 .axis path,
@@ -32,13 +32,7 @@ line {
 
 .label {
     text-anchor: middle;
-    font-size: 12px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.label1 {
-    font-size: 20px;
+    font-size: 15px;
     font-weight: bold;
     cursor: pointer;
 }
@@ -51,21 +45,28 @@ circle:hover{
     fill:red;
 }
 
-/*.partFive {
-    display:flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: space-around;
-    margin: 1%;
-    padding:2%;   
+#partOne{
+    margin-left: 5%;
+    margin-top: 2%;
 }
 
-.scatterplotSet {
-  width: 15%;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: center;
-  padding: 2%;  
+#partTwo {
+     margin-left: 5%;
 }
-*/
+
+#partThree {
+    margin-left: 5%;
+}
+
+#partFive {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 4%;  
+}
+
+#scatterplotSet {
+    display: flex;
+   flex-direction: row;
+   flex-wrap: wrap;
+   width: 15%;
+}
